@@ -4,18 +4,18 @@ require('moment-precise-range-plugin');
 
 let arr = [];
 
-function Timer({ time, name}) {
+function Timer({ time, name }) {
 
-  let diff = moment.preciseDiff(time, moment().format('MMMM DD YYYY, hh:mm:ss'))
-  let passedSeconds = diff.match(/[0-9][0-9] seconds|[0-9] second/g) !== null
-    ? +diff.match(/[0-9][0-9] seconds|[0-9] second/g)[0].match(/[0-9]|[0-9][0-9]/g).join('') : 0;
-  let passedMinutes = diff.match(/[0-9][0-9] minutes|[0-9] minute/g) !== null
-    ? +diff.match(/[0-9][0-9] minutes|[0-9] minute/g)[0].match(/[0-9]|[0-9][0-9]/g).join('') : 0;
-  let passedHours = diff.match(/[0-9][0-9] hours|[0-9] hour/g) !== null
-    ? +diff.match(/[0-9][0-9] hours|[0-9] hour/g)[0].match(/[0-9]|[0-9][0-9]/g).join('') : 0;
+  let diff = moment.preciseDiff(time, moment().format('MMMM DD YYYY, hh:mm:ss'));
+  let passedSeconds = diff.match(/second/g) !== null
+    ? +diff.match(/[0-9][0-9] second|[0-9] second/g)[0].slice(0, 2) : 0;
+  let passedMinutes = diff.match(/minute/g) !== null
+    ? +diff.match(/[0-9][0-9] minute|[0-9] minute/g)[0].slice(0, 2) : 0;
+  let passedHours = diff.match(/hour/g) !== null
+    ? +diff.match(/[0-9][0-9] hours|[0-9] hour/g)[0].slice(0, 2) : 0;
 
-  const [second, setSecond] = useState( passedSeconds);
-  const [minuts, setMinuts] = useState( passedMinutes);
+  const [second, setSecond] = useState(passedSeconds);
+  const [minuts, setMinuts] = useState(passedMinutes);
   const [hours, setHours] = useState(passedHours);
   const [timeInterval, setTimeInterval] = useState(0);
   const [on, setOn] = useState(true);
