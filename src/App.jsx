@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import Timer from "./timer/Timer.jsx";
 import "./main.scss";
 
-let count = -1;
 function App() {
-    const [task, setTask] = useState(JSON.parse(localStorage.getItem("tasks")) !== null ? JSON.parse(localStorage.getItem("tasks")) : [])
-
-    let array = [];
+    const [task, setTask] = useState(JSON.parse(localStorage.getItem("tasks")) !== null ? JSON.parse(localStorage.getItem("tasks")) : []);
+    
     function create() {
         setTask(task.concat([
             {
                 name: document.querySelector(".nameTask").value,
                 timeCreate: new Date(),
-                id: ++count
+                id: Math.random()
             }]),
         );
     }
@@ -21,16 +19,11 @@ function App() {
         if (task.length > 0) {
             localStorage.setItem("tasks", JSON.stringify(task))
         }
-        
-    }, [array]);
-
+    }, [task]);
 
     function deleteTask(id, mass) {
-        array = mass.filter(i => { if (i.id !== id) { return i } })
-        setTask(array)
-        if (array.length < 1) {
-            localStorage.removeItem("tasks")
-        }
+        setTask(mass.filter((i) => i.id !== id));
+        localStorage.removeItem("tasks")
     }
 
     return (
