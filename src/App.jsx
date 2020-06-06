@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Timer from "./Timer.jsx";
-import moment from "moment";
-require('moment-precise-range-plugin');
 import "./main.scss";
 
+let count = -1;
 function App() {
     const [task, setTask] = useState(JSON.parse(localStorage.getItem("tasks")) !== null ? JSON.parse(localStorage.getItem("tasks")) : [])
+
     let array = [];
     function create() {
+        
         setTask(task.concat([
             {
                 name: document.querySelector(".nameTask").value,
-                timeCreate: moment().format('hh:mm:ss'),
+                timeCreate: new Date(),
+                id: ++count
             }]),
         );
     }
@@ -24,8 +26,8 @@ function App() {
     }, [array]);
 
 
-    function deleteTask(index, mass) {
-        array = mass.filter((i, q) => { if (q !== index) { return i } })
+    function deleteTask(id, mass) {
+        array = mass.filter(i => { if (i.id !== id) { return i } })
         setTask(array)
         if (array.length < 1) {
             localStorage.removeItem("tasks")
@@ -70,10 +72,10 @@ function App() {
                         <button onClick={create}>Create Timer</button>
                     </div>
                     {task.flat().map((i, index) => {
-                        return <div key={Math.random() * (0 - 1000000) + 0} className="task">
+                        return <div key={Math.random()} className="task">
                             <span className="container__name">{i.name === "" ? `Timer name ${index + 1}` : i.name}</span>
                             <Timer time={i.timeCreate} name={`name${index}`} index={index} />
-                            <button className="delete" onClick={() => deleteTask(index, task)}><i className="fas fa-trash basket"></i></button>
+                            <button className="delete" onClick={() => deleteTask(i.id, task)}><i className="fas fa-trash basket"></i></button>
                         </div>
                     })}
                 </div>

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-require('moment-precise-range-plugin');
 
 function Timer({ time, name }) {
 
-  let passed = moment.utc(moment.duration(moment().format('hh:mm:ss')) - moment.duration(time)).format("DD HH:mm:ss");;
+  var secs = moment.duration(moment(new Date()).diff(time)).asSeconds();
   
-  const [second, setSecond] = useState(+passed.slice(-2));
-  const [minuts] = useState(+passed.slice(-5, -3));
-  const [hours] = useState(+passed.slice(3, 5));
+  const [second, setSecond] = useState(+secs);
   const [timeInterval, setTimeInterval] = useState(0);
   const [on, setOn] = useState(true);
-  let timer = moment().hour(hours).minute(minuts).second(second).format('HH : mm : ss');
+  let timer = moment().hour(0).minute(0).second(second).format('HH : mm : ss');
 
   useEffect(() => {
     setTimeInterval(setInterval(() => {
