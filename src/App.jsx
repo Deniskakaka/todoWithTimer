@@ -4,8 +4,6 @@ import moment from "moment";
 require('moment-precise-range-plugin');
 import "./main.scss";
 
-
-
 function App() {
     const [task, setTask] = useState(JSON.parse(localStorage.getItem("tasks")) !== null ? JSON.parse(localStorage.getItem("tasks")) : [])
     let array = [];
@@ -22,6 +20,7 @@ function App() {
         if (task.length > 0) {
             localStorage.setItem("tasks", JSON.stringify(task))
         }
+        
     }, [array]);
 
 
@@ -65,14 +64,14 @@ function App() {
                     but set off at once toward the Red Queen. To her surprise, she lost sight of her in a moment.
                     </p>
                 </div>
-                <div className="conteiner">
-                    <div className="conteiner-spaceCreate">
+                <div className="container">
+                    <div className="container-spaceCreate">
                         <input type="text" className="nameTask" placeholder="Timer Name" />
                         <button onClick={create}>Create Timer</button>
                     </div>
                     {task.flat().map((i, index) => {
-                        return <div key={index} className="task">
-                            <span className="conteiner__name">{i.name === "" ? `Timer name ${index + 1}` : i.name}</span>
+                        return <div key={Math.random() * (0 - 1000000) + 0} className="task">
+                            <span className="container__name">{i.name === "" ? `Timer name ${index + 1}` : i.name}</span>
                             <Timer time={i.timeCreate} name={`name${index}`} index={index} />
                             <button className="delete" onClick={() => deleteTask(index, task)}><i className="fas fa-trash basket"></i></button>
                         </div>
@@ -88,11 +87,11 @@ function App() {
                     <span className="author__AppStarter">© AppStarter, 2017</span>
                 </div>
                 <div className="links">
-                    <i class="fab fa-twitter twitter"></i>
-                    <div class="links__middle">
-                        <i class="fab fa-facebook-f facebook"></i>
+                    <i className="fab fa-twitter twitter"></i>
+                    <div className="links__middle">
+                        <i className="fab fa-facebook-f facebook"></i>
                     </div>
-                    <i class="fab fa-instagram instagram"></i>
+                    <i className="fab fa-instagram instagram"></i>
                 </div>
             </footer>
         </>
