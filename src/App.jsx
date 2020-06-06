@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Timer from "./Timer.jsx";
+import Timer from "./timer/Timer.jsx";
 import "./main.scss";
 
 let count = -1;
@@ -8,7 +8,6 @@ function App() {
 
     let array = [];
     function create() {
-        
         setTask(task.concat([
             {
                 name: document.querySelector(".nameTask").value,

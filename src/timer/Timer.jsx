@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./timer.scss";
 import moment from "moment";
 
 function Timer({ time, name }) {
